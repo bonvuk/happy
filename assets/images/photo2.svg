@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="640" viewBox="0 0 480 640">
+  <defs>
+    <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFE8D6"/>
+      <stop offset="100%" stop-color="#E0D4FA"/>
+    </linearGradient>
+  </defs>
+  <rect width="480" height="640" fill="url(#g2)"/>
+  <circle cx="240" cy="260" r="70" fill="#ffffff" opacity="0.55"/>
+  <path d="M240 300 C 200 260, 150 260, 150 220 C 150 190, 175 175, 200 190 C 215 198, 230 215, 240 235 C 250 215, 265 198, 280 190 C 305 175, 330 190, 330 220 C 330 260, 280 260, 240 300 Z" fill="#ffffff" opacity="0.85"/>
+  <text x="240" y="420" font-family="'Helvetica Neue', Arial, sans-serif" font-size="28" fill="#ffffff" text-anchor="middle" opacity="0.95">Kỷ niệm</text>
+  <text x="240" y="460" font-family="'Helvetica Neue', Arial, sans-serif" font-size="16" fill="#ffffff" text-anchor="middle" opacity="0.75">placeholder photo 2</text>
+</svg>

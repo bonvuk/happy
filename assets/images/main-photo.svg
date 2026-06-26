@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="640" viewBox="0 0 480 640">
+  <defs>
+    <linearGradient id="gmain" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFC9DD"/>
+      <stop offset="100%" stop-color="#FFE3C7"/>
+    </linearGradient>
+  </defs>
+  <rect width="480" height="640" fill="url(#gmain)"/>
+  <circle cx="240" cy="230" r="90" fill="#ffffff" opacity="0.5"/>
+  <path d="M240 280 C 190 230, 130 230, 130 180 C 130 145, 160 125, 190 142 C 210 153, 228 175, 240 200 C 252 175, 270 153, 290 142 C 320 125, 350 145, 350 180 C 350 230, 290 230, 240 280 Z" fill="#ffffff" opacity="0.9"/>
+  <text x="240" y="460" font-family="Georgia, serif" font-size="34" fill="#ffffff" text-anchor="middle" font-style="italic">Ảnh của em</text>
+  <text x="240" y="500" font-family="Arial, sans-serif" font-size="16" fill="#ffffff" text-anchor="middle" opacity="0.8">(thay bằng ảnh thật của bạn)</text>
+</svg>
