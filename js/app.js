@@ -26,8 +26,8 @@
   const CONFIG = {
     // 4-digit passcode required to unlock the lock screen.
     // Tip: a meaningful date works great, e.g. "1408" for Aug 14th.
-    passcode: '0606',
-    passcodeHint: 'Gợi ý: ngày mình quen nhau ❤️',
+    passcode: '1308',
+    passcodeHint: 'Gợi ý: sinh nhật của em đó 🎂',
 
     mainPhoto: 'assets/images/main-photo.svg',
 
@@ -178,18 +178,34 @@
 
     function bloomThenUnlock(){
       isLocked = true;
-      // scatter little flowers across the bloom overlay
-      const glyphs = ['🌸', '🌺', '🌷', '🌼', '💐', '🌻'];
+
+      const flowerFiles = [
+        'assets/flowers/bloom-pink.svg',
+        'assets/flowers/bloom-rose.svg',
+        'assets/flowers/bloom-white.svg',
+        'assets/flowers/bloom-peach.svg',
+        'assets/flowers/bloom-fuchsia.svg',
+        'assets/flowers/bloom-lavender.svg',
+        'assets/flowers/leaf-green.svg',
+        'assets/flowers/leaf-deep.svg'
+      ];
+
       bloom.innerHTML = '';
-      const COUNT = 16;
+      const COUNT = 46; // dense enough to feel like the screen is flooded with flowers
       for (let i = 0; i < COUNT; i++){
-        const span = document.createElement('span');
-        span.textContent = choice(glyphs);
-        span.style.left = `${rand(8, 92)}%`;
-        span.style.top = `${rand(8, 92)}%`;
-        span.style.setProperty('--rot', `${rand(-40, 40)}deg`);
-        span.style.animationDelay = `${rand(0, .35)}s`;
-        bloom.appendChild(span);
+        const img = document.createElement('img');
+        img.src = choice(flowerFiles);
+        img.alt = '';
+        img.style.left = `${rand(-3, 95)}%`;
+        img.style.top = `${rand(-4, 92)}%`;
+        img.style.setProperty('--bloom-size', `${rand(34, 84)}px`);
+        img.style.setProperty('--bloom-rot', `${rand(-50, 50)}deg`);
+        img.style.setProperty('--bloom-fall', `${rand(40, 120)}px`);
+        img.style.setProperty('--bloom-dur', `${rand(.5, .9)}s`);
+        img.style.setProperty('--bloom-drift-dur', `${rand(2.4, 3.6)}s`);
+        img.style.setProperty('--bloom-delay', `${rand(0, .55)}s`);
+        img.style.zIndex = String(Math.round(rand(1, 9)));
+        bloom.appendChild(img);
       }
       bloom.classList.add('is-blooming');
       playSfx(CONFIG.popSoundSrc, 0.55);
@@ -199,7 +215,10 @@
         screen.classList.remove('is-active');
         screen.classList.remove('is-unlocking');
         onUnlock();
-      }, 1250);
+      }, 1450);
+
+      // let the bloom fully fade before clearing nodes (keeps it light afterwards)
+      setTimeout(() => { bloom.classList.remove('is-blooming'); bloom.innerHTML = ''; }, 2700);
     }
 
     function handleKey(key){
@@ -470,6 +489,7 @@
   =================================================================== */
   function initGallery(){
     const photoEl = $('#galleryPhoto');
+    const frameEl = $('.gallery-frame');
     const captionEl = $('#galleryCaption');
     const prevBtn = $('#galleryPrev');
     const nextBtn = $('#galleryNext');
@@ -495,18 +515,26 @@
     }
 
     function burstHearts(){
-      const glyphs = ['💗', '✨', '🌸', '💕'];
-      const COUNT = 10;
+      const glyphs = ['💗', '💕', '💖', '✨'];
+      const COUNT = 18;
+
       for (let i = 0; i < COUNT; i++){
         const span = document.createElement('span');
         span.textContent = choice(glyphs);
-        span.style.setProperty('--bx', `${rand(-120, 120)}px`);
-        span.style.setProperty('--by', `${rand(-220, -120)}px`);
-        span.style.setProperty('--br', `${rand(-90, 90)}deg`);
-        span.style.left = `${rand(35, 65)}%`;
-        span.style.animationDelay = `${rand(0, .25)}s`;
+        const isHero = i < 4; // a few big hearts shoot straight up through the middle for emphasis
+        const size = isHero ? rand(34, 44) : rand(16, 26);
+        const spreadX = isHero ? rand(-18, 18) : rand(-130, 130);
+        const riseY = isHero ? rand(-260, -300) : rand(-160, -240);
+
+        span.style.setProperty('--burst-size', `${size}px`);
+        span.style.setProperty('--bx', `${spreadX}px`);
+        span.style.setProperty('--by', `${riseY}px`);
+        span.style.setProperty('--br', `${rand(-70, 70)}deg`);
+        span.style.setProperty('--burst-dur', `${rand(.9, 1.4)}s`);
+        span.style.left = `${50 + rand(-6, 6)}%`;
+        span.style.animationDelay = `${isHero ? rand(0, .08) : rand(.05, .3)}s`;
         burstHost.appendChild(span);
-        setTimeout(() => span.remove(), 1100);
+        setTimeout(() => span.remove(), 1700);
       }
     }
 
@@ -516,8 +544,13 @@
       likeBtn.classList.remove('is-liked');
       void likeBtn.offsetWidth;
       likeBtn.classList.add('is-liked');
+
+      frameEl.classList.remove('is-liked-pulse');
+      void frameEl.offsetWidth;
+      frameEl.classList.add('is-liked-pulse');
+
       burstHearts();
-      playSfx(CONFIG.popSoundSrc, 0.4);
+      playSfx(CONFIG.popSoundSrc, 0.5);
     });
 
     return {
@@ -548,7 +581,12 @@
       face.style.backgroundImage = `url(${photos[i % photos.length]})`;
       tierEl.appendChild(face);
     }
-    // frosting trim along the bottom edge of the tier
+    // frosting trim along the top and bottom edges of the tier — gives each
+    // layer a real "iced cake" look instead of a bare photo-wrapped box
+    const frostingTop = document.createElement('div');
+    frostingTop.className = 'tier-face--frosting-top';
+    tierEl.appendChild(frostingTop);
+
     const frosting = document.createElement('div');
     frosting.className = 'tier-face--frosting';
     tierEl.appendChild(frosting);
@@ -556,20 +594,73 @@
 
   function initCake(){
     const cakeEl = $('#cake3d');
+    const cakeStage = $('#cakeStage');
     const tierTop = $('#tierTop');
     const tierBottom = $('#tierBottom');
     const caption = $('#cakeCaption');
     const blowBtn = $('#cakeBlowBtn');
     const reactBtn = $('#cakeReact');
     const flash = $('#cakeFlash');
+    const rotateHint = $('#cakeRotateHint');
 
     let built = false;
     let blown = false;
+
+    // ---- drag-to-rotate state ----
+    let rotation = -18; // start at a flattering angle, like the reference video
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartRotation = 0;
+    let idleSpinRAF = null;
+    let lastInteractionAt = 0;
+
+    function applyRotation(){
+      cakeEl.style.setProperty('--user-rotate', `${rotation}deg`);
+    }
+
+    function idleSpin(){
+      // gentle automatic spin that resumes a couple seconds after the user
+      // stops dragging, so the cake still looks alive when left untouched
+      idleSpinRAF = requestAnimationFrame((t) => {
+        if (!isDragging && Date.now() - lastInteractionAt > 1800){
+          rotation += 0.06;
+          applyRotation();
+        }
+        idleSpinRAF = requestAnimationFrame(idleSpin);
+      });
+    }
+
+    function onPointerDown(e){
+      isDragging = true;
+      dragStartX = e.clientX;
+      dragStartRotation = rotation;
+      lastInteractionAt = Date.now();
+      cakeStage.classList.add('is-dragging');
+      rotateHint.classList.add('is-hidden');
+      cakeStage.setPointerCapture && e.pointerId != null && cakeStage.setPointerCapture(e.pointerId);
+    }
+    function onPointerMove(e){
+      if (!isDragging) return;
+      const dx = e.clientX - dragStartX;
+      rotation = dragStartRotation + dx * 0.5; // 0.5 = drag sensitivity
+      lastInteractionAt = Date.now();
+      applyRotation();
+    }
+    function onPointerUp(){
+      isDragging = false;
+      cakeStage.classList.remove('is-dragging');
+      lastInteractionAt = Date.now();
+    }
+
+    cakeStage.addEventListener('pointerdown', onPointerDown);
+    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('pointerup', onPointerUp);
 
     function build(){
       if (built) return;
       buildTier(tierTop, CONFIG.cakeTopPhotos, 59, CONFIG.cakeTopFaceCount);
       buildTier(tierBottom, CONFIG.cakeBottomPhotos, 85, CONFIG.cakeBottomFaceCount);
+      applyRotation();
       built = true;
     }
 
@@ -608,8 +699,15 @@
         blowBtn.disabled = false;
         cakeEl.classList.remove('is-blown');
         caption.textContent = 'Nhắm mắt, ước một điều, rồi chạm vào nến để thổi nhé 🕯️';
+        rotateHint.classList.remove('is-hidden');
+        if (idleSpinRAF === null) idleSpin();
       },
-      close(){}
+      close(){
+        if (idleSpinRAF !== null){
+          cancelAnimationFrame(idleSpinRAF);
+          idleSpinRAF = null;
+        }
+      }
     };
   }
 

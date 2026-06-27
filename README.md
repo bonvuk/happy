@@ -14,8 +14,8 @@ Mọi nội dung cần sửa đều nằm gọn trong phần `CONFIG` ở đầu
 
 ### 1. Đổi mã mở khoá (passcode)
 ```js
-passcode: '0606',                         // đổi thành 4 số bạn muốn (ví dụ ngày kỷ niệm)
-passcodeHint: 'Gợi ý: ngày mình quen nhau ❤️',  // gợi ý hiển thị khi bấm nút 💡
+passcode: '1308',                       // đổi thành 4 số bạn muốn (ví dụ ngày sinh nhật em)
+passcodeHint: 'Gợi ý: sinh nhật của em đó 🎂',  // gợi ý hiển thị khi bấm nút 💡
 ```
 
 ### 2. Đổi ảnh chính ở màn khoá
@@ -57,7 +57,10 @@ gallery: [
 ```js
 cakeTopPhotos:    [...],  // ảnh cho tầng trên (nhỏ)
 cakeBottomPhotos: [...],  // ảnh cho tầng dưới (to)
+cakeTopFaceCount: 6,      // số mặt tầng trên — tăng lên để bánh tròn mượt hơn (ảnh sẽ tự lặp lại nếu ít hơn số mặt)
+cakeBottomFaceCount: 10,  // số mặt tầng dưới
 ```
+👉 Bánh có thể **kéo bằng tay để xoay xem các mặt** (giữ chuột/chạm rồi kéo ngang). Khi không chạm vào, bánh sẽ tự xoay nhẹ.
 
 ### 7. Đổi ảnh trong bóng bay (màn kết)
 ```js
@@ -78,6 +81,7 @@ css/style.css        → toàn bộ giao diện/màu sắc/hoạt ảnh
 js/app.js            → toàn bộ logic + nơi sửa nội dung (CONFIG)
 assets/images/       → ảnh (hiện là ảnh placeholder, hãy thay bằng ảnh thật)
 assets/music/        → nhạc (hiện là âm thanh placeholder, hãy thay bằng nhạc thật)
+assets/flowers/      → ảnh hoa cho hiệu ứng "ngập hoa" sau khi mở khoá thành công
 assets/pop.mp3       → âm thanh hiệu ứng click nhỏ
 ```
 

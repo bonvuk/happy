@@ -59,10 +59,10 @@
           <p class="lock-hint-text" id="lockHintText">Nhập 4 số đặc biệt của chúng mình nhé 💌</p>
         </div>
       </div>
-
-      <!-- Bloom overlay: covers the keypad with flowers once unlocked -->
-      <div class="bloom-overlay" id="bloomOverlay" aria-hidden="true"></div>
     </section>
+
+    <!-- Fullscreen bloom overlay: flowers flood the whole screen once unlocked -->
+    <div class="bloom-overlay" id="bloomOverlay" aria-hidden="true"></div>
 
     <!-- ======================= SCREEN 2 : HOME MENU ======================= -->
     <section class="screen screen--menu" id="screen-menu" aria-label="Menu chính">
@@ -103,16 +103,6 @@
             </svg>
           </span>
           <span class="app-tile__label">Bánh sinh nhật</span>
-        </button>
-
-        <button class="app-tile app-tile--ghost" data-target="" disabled>
-          <span class="app-tile__art app-tile__art--soon"><span>+</span></span>
-          <span class="app-tile__label">Sắp có thêm…</span>
-        </button>
-
-        <button class="app-tile app-tile--ghost" data-target="" disabled>
-          <span class="app-tile__art app-tile__art--soon"><span>+</span></span>
-          <span class="app-tile__label">Sắp có thêm…</span>
         </button>
       </div>
 
@@ -203,6 +193,10 @@
       <div class="panel panel--cake">
         <header class="panel__header panel__header--cake">
           <button class="panel__icon" id="cakeReact" aria-label="Gửi yêu thương">😍</button>
+          <span class="cake-rotate-hint" id="cakeRotateHint" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="15" height="15"><path d="M17.65 6.35A7.95 7.95 0 0 0 12 4a8 8 0 1 0 7.74 10h-2.08A6 6 0 1 1 12 6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" fill="currentColor"/></svg>
+            kéo để xoay
+          </span>
           <button class="panel__close" data-close="cake" aria-label="Đóng">✕</button>
         </header>
 
@@ -213,6 +207,7 @@
             <div class="cake3d__candle cake3d__candle--1"></div>
             <div class="cake3d__candle cake3d__candle--2"></div>
             <div class="cake3d__tier cake3d__tier--top" id="tierTop"></div>
+            <div class="cake3d__plate"></div>
             <div class="cake3d__tier cake3d__tier--bottom" id="tierBottom"></div>
           </div>
         </div>
