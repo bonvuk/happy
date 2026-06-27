@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Gửi em — Một điều bất ngờ nhỏ 🎂</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Ambient floating background petals (decorative, behind everything) -->
+  <div class="bg-petals" id="bgPetals" aria-hidden="true"></div>
+
+  <main class="stage" id="stage">
+
+    <!-- ======================= SCREEN 1 : LOCK ======================= -->
+    <section class="screen screen--lock is-active" id="screen-lock" aria-label="Màn hình khoá">
+      <div class="lock-card">
+        <div class="lock-photo">
+          <img src="assets/images/main-photo.svg" alt="Ảnh của em" />
+        </div>
+
+        <div class="lock-pad">
+          <div class="lock-heart" id="lockHeart">
+            <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
+              <path d="M12 21s-7.5-4.6-10-9.3C0.4 8.8 1.8 5 5.6 5c2 0 3.4 1.1 4.4 2.6C11 6.1 12.4 5 14.4 5c3.8 0 5.2 3.8 3.6 6.7C19.5 16.4 12 21 12 21z" fill="currentColor"/>
+            </svg>
+          </div>
+
+          <div class="lock-dots" id="lockDots" aria-live="polite">
+            <span class="dot" data-i="0"></span>
+            <span class="dot" data-i="1"></span>
+            <span class="dot" data-i="2"></span>
+            <span class="dot" data-i="3"></span>
+          </div>
+
+          <div class="lock-keypad" id="lockKeypad">
+            <button class="key" data-key="1">1</button>
+            <button class="key" data-key="2">2</button>
+            <button class="key" data-key="3">3</button>
+            <button class="key" data-key="4">4</button>
+            <button class="key" data-key="5">5</button>
+            <button class="key" data-key="6">6</button>
+            <button class="key" data-key="7">7</button>
+            <button class="key" data-key="8">8</button>
+            <button class="key" data-key="9">9</button>
+            <button class="key key--ghost" data-key="hint" aria-label="Gợi ý">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2zm-2 17h4v1a2 2 0 0 1-4 0v-1z" fill="currentColor"/></svg>
+            </button>
+            <button class="key" data-key="0">0</button>
+            <button class="key key--ghost" data-key="del" aria-label="Xoá">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M22 6H7l-5 6 5 6h15a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2zM10.4 9.4 12 11l1.6-1.6 1.4 1.4L13.4 12.4 15 14l-1.4 1.4L12 13.8l-1.6 1.6-1.4-1.4 1.6-1.6-1.6-1.6 1.4-1.4z" fill="currentColor"/></svg>
+            </button>
+          </div>
+
+          <p class="lock-hint-text" id="lockHintText">Nhập 4 số đặc biệt của chúng mình nhé 💌</p>
+        </div>
+      </div>
+
+      <!-- Bloom overlay: covers the keypad with flowers once unlocked -->
+      <div class="bloom-overlay" id="bloomOverlay" aria-hidden="true"></div>
+    </section>
+
+    <!-- ======================= SCREEN 2 : HOME MENU ======================= -->
+    <section class="screen screen--menu" id="screen-menu" aria-label="Menu chính">
+      <header class="menu-header">
+        <p class="menu-eyebrow">chạm vào để mở</p>
+        <h1 class="menu-title">Gửi người con gái anh yêu 🎀</h1>
+      </header>
+
+      <div class="app-grid" id="appGrid">
+        <button class="app-tile" data-target="music">
+          <span class="app-tile__art app-tile__art--music">
+            <svg viewBox="0 0 24 24" width="26" height="26"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z" fill="currentColor"/></svg>
+          </span>
+          <span class="app-tile__label">Nhạc của mình</span>
+        </button>
+
+        <button class="app-tile" data-target="letter">
+          <span class="app-tile__art app-tile__art--letter">
+            <svg viewBox="0 0 24 24" width="26" height="26"><path d="M3 6h18v12H3V6zm9 7L4.5 8h15L12 13z" fill="currentColor"/></svg>
+          </span>
+          <span class="app-tile__label">Lá thư nhỏ</span>
+        </button>
+
+        <button class="app-tile" data-target="gallery">
+          <span class="app-tile__art app-tile__art--gallery">
+            <svg viewBox="0 0 24 24" width="26" height="26"><path d="M21 19V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14h18zM8.5 11l2.5 3 3.5-4.5L19 17H5l3.5-6z" fill="currentColor"/></svg>
+          </span>
+          <span class="app-tile__label">Khoảnh khắc</span>
+        </button>
+
+        <button class="app-tile" data-target="cake">
+          <span class="app-tile__art app-tile__art--cake">
+            <svg viewBox="0 0 24 24" width="26" height="26">
+              <path d="M11 2.5c0 .6-.3.9-.5 1.2-.2.3-.3.5-.3.8 0 .6.4 1 .9 1s.9-.4.9-1c0-.3-.1-.5-.3-.8-.2-.3-.5-.6-.5-1.2h-.2z" fill="currentColor"/>
+              <path d="M4 21v-6.5C4 13.1 5.1 12 6.5 12h11c1.4 0 2.5 1.1 2.5 2.5V21H4z" fill="currentColor"/>
+              <path d="M4 17.2c.7.5 1.5.8 2.5.8s1.8-.3 2.5-.8c.7.5 1.5.8 2.5.8s1.8-.3 2.5-.8c.7.5 1.5.8 2.5.8s1.8-.3 2.5-.8V21H4v-3.8z" fill="currentColor" opacity=".55"/>
+              <rect x="10.4" y="6.2" width="1.2" height="3.6" rx=".6" fill="currentColor"/>
+            </svg>
+          </span>
+          <span class="app-tile__label">Bánh sinh nhật</span>
+        </button>
+
+        <button class="app-tile app-tile--ghost" data-target="" disabled>
+          <span class="app-tile__art app-tile__art--soon"><span>+</span></span>
+          <span class="app-tile__label">Sắp có thêm…</span>
+        </button>
+
+        <button class="app-tile app-tile--ghost" data-target="" disabled>
+          <span class="app-tile__art app-tile__art--soon"><span>+</span></span>
+          <span class="app-tile__label">Sắp có thêm…</span>
+        </button>
+      </div>
+
+      <p class="menu-footer">được làm bằng rất nhiều ❤️, riêng cho em</p>
+    </section>
+
+    <!-- ======================= OVERLAY : MUSIC PLAYER ======================= -->
+    <section class="overlay" id="overlay-music" aria-label="Trình nghe nhạc" hidden>
+      <div class="panel panel--music">
+        <header class="panel__header">
+          <span class="panel__title">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z" fill="currentColor"/></svg>
+            Playlist của mình
+          </span>
+          <button class="panel__close" data-close="music" aria-label="Đóng">✕</button>
+        </header>
+
+        <div class="player">
+          <img class="player__art" id="playerArt" src="assets/images/cover1.svg" alt="Ảnh bìa bài hát" />
+          <div class="player__meta">
+            <p class="player__title" id="playerTitle">Track 01</p>
+            <div class="player__progress">
+              <span class="player__time" id="playerTimeCurrent">0:00</span>
+              <input type="range" class="player__seek" id="playerSeek" value="0" min="0" max="100" />
+              <span class="player__time" id="playerTimeTotal">0:00</span>
+            </div>
+            <div class="player__controls">
+              <button class="player__btn" id="btnPrev" aria-label="Bài trước">
+                <svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 6h2v12H6V6zm3.5 6 8.5 6V6l-8.5 6z" fill="currentColor"/></svg>
+              </button>
+              <button class="player__btn player__btn--play" id="btnPlay" aria-label="Phát / Tạm dừng">
+                <svg viewBox="0 0 24 24" width="22" height="22" id="iconPlay"><path d="M8 5v14l11-7L8 5z" fill="currentColor"/></svg>
+              </button>
+              <button class="player__btn" id="btnNext" aria-label="Bài tiếp">
+                <svg viewBox="0 0 24 24" width="20" height="20"><path d="M16 6h2v12h-2V6zM6 6l8.5 6L6 18V6z" fill="currentColor"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <ul class="playlist" id="playlist"><!-- injected by JS --></ul>
+      </div>
+    </section>
+
+    <!-- ======================= OVERLAY : LETTER ======================= -->
+    <section class="overlay" id="overlay-letter" aria-label="Lá thư" hidden>
+      <div class="panel panel--letter">
+        <button class="panel__close panel__close--floating" data-close="letter" aria-label="Đóng">✕</button>
+        <div class="letter-flower letter-flower--tl" aria-hidden="true">🌸</div>
+        <div class="letter-flower letter-flower--br" aria-hidden="true">🌸</div>
+
+        <div class="letter-body" id="letterBody">
+          <p class="letter-line" id="letterLine"></p>
+        </div>
+
+        <button class="letter-skip" id="letterSkip">hiện hết lá thư →</button>
+      </div>
+    </section>
+
+    <!-- ======================= OVERLAY : GALLERY ======================= -->
+    <section class="overlay" id="overlay-gallery" aria-label="Khoảnh khắc của hai đứa" hidden>
+      <div class="panel panel--gallery">
+        <button class="panel__close panel__close--floating" data-close="gallery" aria-label="Đóng">✕</button>
+
+        <button class="gallery-nav gallery-nav--prev" id="galleryPrev" aria-label="Ảnh trước">
+          <svg viewBox="0 0 24 24" width="22" height="22"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+
+        <div class="gallery-frame">
+          <img class="gallery-photo" id="galleryPhoto" src="assets/images/photo1.svg" alt="Ảnh kỷ niệm" />
+          <p class="gallery-caption" id="galleryCaption">Khoảnh khắc 1</p>
+        </div>
+
+        <button class="gallery-nav gallery-nav--next" id="galleryNext" aria-label="Ảnh sau">
+          <svg viewBox="0 0 24 24" width="22" height="22"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+
+        <button class="gallery-like" id="galleryLike" aria-label="Thích ảnh này">
+          <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 21s-7.5-4.6-10-9.3C0.4 8.8 1.8 5 5.6 5c2 0 3.4 1.1 4.4 2.6C11 6.1 12.4 5 14.4 5c3.8 0 5.2 3.8 3.6 6.7C19.5 16.4 12 21 12 21z" fill="currentColor"/></svg>
+        </button>
+
+        <div class="gallery-burst" id="galleryBurst" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- ======================= OVERLAY : CAKE ======================= -->
+    <section class="overlay" id="overlay-cake" aria-label="Bánh sinh nhật" hidden>
+      <div class="panel panel--cake">
+        <header class="panel__header panel__header--cake">
+          <button class="panel__icon" id="cakeReact" aria-label="Gửi yêu thương">😍</button>
+          <button class="panel__close" data-close="cake" aria-label="Đóng">✕</button>
+        </header>
+
+        <div class="cake-stage" id="cakeStage">
+          <div class="cake3d" id="cake3d">
+            <div class="cake3d__flame cake3d__flame--1"></div>
+            <div class="cake3d__flame cake3d__flame--2"></div>
+            <div class="cake3d__candle cake3d__candle--1"></div>
+            <div class="cake3d__candle cake3d__candle--2"></div>
+            <div class="cake3d__tier cake3d__tier--top" id="tierTop"></div>
+            <div class="cake3d__tier cake3d__tier--bottom" id="tierBottom"></div>
+          </div>
+        </div>
+
+        <p class="cake-caption" id="cakeCaption">Nhắm mắt, ước một điều, rồi chạm vào nến để thổi nhé 🕯️</p>
+        <button class="cake-blow-btn" id="cakeBlowBtn">Thổi nến 💨</button>
+
+        <div class="cake-flash" id="cakeFlash" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- ======================= SCREEN 3 : BALLOON ENDING ======================= -->
+    <section class="screen screen--balloon" id="screen-balloon" aria-label="Lời chúc cuối" hidden>
+      <div class="balloon-field" id="balloonField"><!-- injected by JS --></div>
+      <p class="balloon-message">Chúc em sinh nhật vui vẻ, hạnh phúc thật nhiều 🎂<br/>Mãi mãi bên em — anh 💞</p>
+      <button class="balloon-replay" id="balloonReplay">↺ Xem lại từ đầu</button>
+    </section>
+
+  </main>
+
+  <!-- click-to-enable-audio veil (mobile autoplay policies require a gesture) -->
+  <button class="audio-veil" id="audioVeil" aria-label="Chạm để bắt đầu">
+    <span>chạm để mở 🎀</span>
+  </button>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
