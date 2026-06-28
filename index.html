@@ -72,28 +72,28 @@
       </header>
 
       <div class="app-grid" id="appGrid">
-        <button class="app-tile" data-target="music">
+        <button class="app-tile" data-target="music" style="--tile-delay: .05s">
           <span class="app-tile__art app-tile__art--music">
             <svg viewBox="0 0 24 24" width="26" height="26"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z" fill="currentColor"/></svg>
           </span>
           <span class="app-tile__label">Nhạc của mình</span>
         </button>
 
-        <button class="app-tile" data-target="letter">
+        <button class="app-tile" data-target="letter" style="--tile-delay: .14s">
           <span class="app-tile__art app-tile__art--letter">
             <svg viewBox="0 0 24 24" width="26" height="26"><path d="M3 6h18v12H3V6zm9 7L4.5 8h15L12 13z" fill="currentColor"/></svg>
           </span>
           <span class="app-tile__label">Lá thư nhỏ</span>
         </button>
 
-        <button class="app-tile" data-target="gallery">
+        <button class="app-tile" data-target="gallery" style="--tile-delay: .23s">
           <span class="app-tile__art app-tile__art--gallery">
             <svg viewBox="0 0 24 24" width="26" height="26"><path d="M21 19V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14h18zM8.5 11l2.5 3 3.5-4.5L19 17H5l3.5-6z" fill="currentColor"/></svg>
           </span>
           <span class="app-tile__label">Khoảnh khắc</span>
         </button>
 
-        <button class="app-tile" data-target="cake">
+        <button class="app-tile" data-target="cake" style="--tile-delay: .32s">
           <span class="app-tile__art app-tile__art--cake">
             <svg viewBox="0 0 24 24" width="26" height="26">
               <path d="M11 2.5c0 .6-.3.9-.5 1.2-.2.3-.3.5-.3.8 0 .6.4 1 .9 1s.9-.4.9-1c0-.3-.1-.5-.3-.8-.2-.3-.5-.6-.5-1.2h-.2z" fill="currentColor"/>
@@ -204,8 +204,30 @@
           <div class="cake3d" id="cake3d">
             <div class="cake3d__flame cake3d__flame--1"></div>
             <div class="cake3d__flame cake3d__flame--2"></div>
-            <div class="cake3d__candle cake3d__candle--1"></div>
-            <div class="cake3d__candle cake3d__candle--2"></div>
+            <svg class="cake3d__candle cake3d__candle--1" viewBox="0 0 20 40" aria-hidden="true">
+              <defs>
+                <linearGradient id="candleStripe1" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#ff9bbd"/>
+                  <stop offset="50%" stop-color="#ffffff"/>
+                  <stop offset="100%" stop-color="#ff9bbd"/>
+                </linearGradient>
+              </defs>
+              <!-- numeral "1": vertical stroke with a small flag at the top -->
+              <path d="M10 38 V4 M10 4 L5 8" fill="none" stroke="url(#candleStripe1)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+              <line x1="10" y1="2" x2="10" y2="6" stroke="#5c2a42" stroke-width="1" />
+            </svg>
+            <svg class="cake3d__candle cake3d__candle--2" viewBox="0 0 20 40" aria-hidden="true">
+              <defs>
+                <linearGradient id="candleStripe2" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#ff9bbd"/>
+                  <stop offset="50%" stop-color="#ffffff"/>
+                  <stop offset="100%" stop-color="#ff9bbd"/>
+                </linearGradient>
+              </defs>
+              <!-- numeral "7": top bar then diagonal down to bottom-left -->
+              <path d="M3 5 H17 L6 38" fill="none" stroke="url(#candleStripe2)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+              <line x1="17" y1="3" x2="17" y2="7" stroke="#5c2a42" stroke-width="1" />
+            </svg>
             <div class="cake3d__tier cake3d__tier--top" id="tierTop"></div>
             <div class="cake3d__plate"></div>
             <div class="cake3d__tier cake3d__tier--bottom" id="tierBottom"></div>
@@ -222,8 +244,10 @@
     <!-- ======================= SCREEN 3 : BALLOON ENDING ======================= -->
     <section class="screen screen--balloon" id="screen-balloon" aria-label="Lời chúc cuối" hidden>
       <div class="balloon-field" id="balloonField"><!-- injected by JS --></div>
-      <p class="balloon-message">Chúc em sinh nhật vui vẻ, hạnh phúc thật nhiều 🎂<br/>Mãi mãi bên em — anh 💞</p>
-      <button class="balloon-replay" id="balloonReplay">↺ Xem lại từ đầu</button>
+      <div class="balloon-message-card">
+        <p class="balloon-message">Chúc em sinh nhật vui vẻ, hạnh phúc thật nhiều 🎂<br/>Mãi mãi bên em — anh 💞</p>
+        <button class="balloon-replay" id="balloonReplay">↺ Xem lại từ đầu</button>
+      </div>
     </section>
 
   </main>

@@ -62,6 +62,8 @@ cakeBottomFaceCount: 10,  // số mặt tầng dưới
 ```
 👉 Bánh có thể **kéo bằng tay để xoay xem các mặt** (giữ chuột/chạm rồi kéo ngang). Khi không chạm vào, bánh sẽ tự xoay nhẹ.
 
+👉 Hai cây nến trên bánh có hình **số "1" và "7"** (tạo thành "17"), vẽ bằng SVG trong `index.html` (tìm `cake3d__candle--1` và `cake3d__candle--2`). Muốn đổi sang số tuổi khác, sửa thuộc tính `d` của từng `<path>` để vẽ lại hình số mong muốn.
+
 ### 7. Đổi ảnh trong bóng bay (màn kết)
 ```js
 balloonPhotos: [...],

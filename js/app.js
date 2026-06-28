@@ -364,12 +364,14 @@
       audio.play().then(() => {
         btnPlay.classList.add('is-playing');
         iconPlay.innerHTML = ICON_PAUSE;
+        art.classList.add('is-spinning');
       }).catch(() => { /* blocked until user gesture — ignore */ });
     }
     function pause(){
       audio.pause();
       btnPlay.classList.remove('is-playing');
       iconPlay.innerHTML = ICON_PLAY;
+      art.classList.remove('is-spinning');
     }
     function togglePlay(){
       if (audio.paused) play(); else pause();
@@ -390,10 +392,31 @@
     });
     audio.addEventListener('ended', () => loadSong(index + 1, true));
 
-    seek.addEventListener('input', () => { isSeeking = true; tCur.textContent = formatTime(Number(seek.value)); });
-    seek.addEventListener('change', () => {
+    let seekSafetyTimer = null;
+    function startSeeking(){
+      isSeeking = true;
+      clearTimeout(seekSafetyTimer);
+      // safety net: never let isSeeking get stuck true even if no release
+      // event fires for some reason — this guarantees the progress bar
+      // can't freeze permanently.
+      seekSafetyTimer = setTimeout(() => { isSeeking = false; }, 4000);
+    }
+    function commitSeek(){
       audio.currentTime = Number(seek.value);
       isSeeking = false;
+      clearTimeout(seekSafetyTimer);
+    }
+
+    seek.addEventListener('input', () => {
+      startSeeking();
+      tCur.textContent = formatTime(Number(seek.value));
+    });
+    seek.addEventListener('change', commitSeek);
+    // input/change alone can miss the "release" on a plain click (no drag),
+    // leaving isSeeking stuck true — these events reliably fire on release
+    // across mouse, touch, and pointer input and guarantee the bar resumes.
+    ['pointerup', 'mouseup', 'touchend'].forEach(evt => {
+      seek.addEventListener(evt, commitSeek);
     });
 
     loadSong(0, false);
@@ -726,14 +749,31 @@
         balloon.className = 'balloon';
         balloon.style.left = `${rand(4, 86)}%`;
         balloon.style.setProperty('--drift', `${rand(-40, 40)}px`);
-        balloon.style.animationDuration = `${rand(9, 15)}s`;
-        balloon.style.animationDelay = `${(i * 0.5) + rand(0, .6)}s`;
+        balloon.style.animationDuration = `${rand(7, 11)}s`;
+        balloon.style.animationDelay = `${i * 0.18 + rand(0, .15)}s`;
         balloon.innerHTML = `
           <div class="balloon__body"><img src="${src}" alt="" /></div>
           <div class="balloon__string"></div>
         `;
         field.appendChild(balloon);
       });
+    }
+
+    function spawnConfetti(){
+      const glyphs = ['🎊', '🎉', '✨', '🎀'];
+      const COUNT = 22;
+      for (let i = 0; i < COUNT; i++){
+        const span = document.createElement('span');
+        span.className = 'confetti-piece';
+        span.textContent = choice(glyphs);
+        span.style.left = `${rand(2, 96)}%`;
+        span.style.setProperty('--confetti-rot', `${rand(-180, 180)}deg`);
+        span.style.setProperty('--confetti-drift', `${rand(-60, 60)}px`);
+        span.style.fontSize = `${rand(14, 24)}px`;
+        span.style.animationDuration = `${rand(4, 7)}s`;
+        span.style.animationDelay = `${rand(0, 2.5)}s`;
+        field.appendChild(span);
+      }
     }
 
     replayBtn.addEventListener('click', () => {
@@ -745,6 +785,7 @@
         screen.hidden = false;
         screen.classList.add('is-active');
         spawnBalloons();
+        spawnConfetti();
       },
       hide(){
         screen.classList.remove('is-active');
